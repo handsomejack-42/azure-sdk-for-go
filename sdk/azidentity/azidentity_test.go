@@ -1068,6 +1068,11 @@ func TestDoForClient(t *testing.T) {
 					assert.Equal(t, string(reqBody), string(reqBody))
 				}
 
+				// validate headers match
+				for k, v := range tt.headers {
+					assert.Equal(t, v, req.Header[k])
+				}
+
 				// validate pipeline got called
 				assert.Equal(t, policyHeaderValue, req.Header.Get(policyHeaderName))
 

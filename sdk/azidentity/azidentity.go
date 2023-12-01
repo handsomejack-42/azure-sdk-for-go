@@ -151,6 +151,14 @@ func doForClient(client *azcore.Client, r *http.Request) (*http.Response, error)
 			return nil, err
 		}
 	}
+
+	h := req.Raw().Header
+	for key, val := range r.Header {
+		for i := range val {
+			h.Add(key, val[i])
+		}
+	}
+
 	resp, err := client.Pipeline().Do(req)
 	if err != nil {
 		return nil, err
